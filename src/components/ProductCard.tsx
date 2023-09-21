@@ -1,15 +1,13 @@
-import { storeData } from "../lib/data";
-
-type ProductCardProps = (typeof storeData)[number];
+import { storeDataType } from "../types";
 
 export default function ProductCard({
   title,
   imageUrl,
   price,
   discount,
-}: ProductCardProps) {
+}: storeDataType) {
   return (
-    <article className="w-full">
+    <article className="relative w-full">
       <img
         src={imageUrl}
         alt={title}
@@ -19,7 +17,6 @@ export default function ProductCard({
       <p className="text-sm text-gray-500">
         INR {price} {discount ? <span>-{discount}%</span> : ""}
       </p>
-      {}
     </article>
   );
 }
