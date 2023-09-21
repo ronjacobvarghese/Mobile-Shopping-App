@@ -12,6 +12,8 @@ import home from '/svg/home.svg';
 import settings from '/svg/settings-02.svg';
 import bag from '/svg/shopping-bag-03.svg';
 
+export const categoryData =["All","Men","Women","Kids","T-shirts"]
+
 export const navData = [{
   id:"#home",
   name:"Home",
@@ -33,12 +35,13 @@ export const navData = [{
 export const storeData = [{
   title:"Regular fit color black",
   imageUrl:regBlack,
-  price:1690,
+  price:"1,690",
+  discount:0,
   review:4.5,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },{
   title:"Regular fit polo",
-  price:1100,
+  price:"1,100",
   review:4.5,
   discount:52,  
   imageUrl:regPolo,
@@ -46,26 +49,30 @@ export const storeData = [{
 },
 {
   title:"Regular fit slogan",
-  price:1190,  
+  discount:0,
+  price:"1,190",  
   review:4.5,
   imageUrl:regSlogan,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 
 },{
   title:"Regular fit v-neck",
-  price:1290,  
+  discount:0,
+  price:"1,290",  
   review:4.5,
   imageUrl:regV,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },{
   title:"Regular fit color pink",
-  price:1690,  
+  discount:0,
+  price:"1,690",  
   review:4.5,
   imageUrl:regPink,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },{
   title:"Regular fit full sleeve",
-  price:1290, 
+  discount:0,
+  price:"1,290", 
   review:4.5,
   imageUrl:regFull,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
