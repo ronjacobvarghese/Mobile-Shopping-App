@@ -3,22 +3,32 @@ import star from "/svg/star-01.svg";
 import Header from "../components/Header";
 import { storeDataType } from "../types";
 import bag from "/svg/shopping-bag-02.svg";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useProductsContext } from "../context/ProductsProvider";
 
-export default function ProductDetail({
-  title,
-  imageUrl,
-  price,
-  review,
-  rating,
-  description,
-}: storeDataType) {
+type ProductDetailProps = {
+  detail: storeDataType;
+  onClose: () => void;
+};
+
+export default function ProductDetail({ detail, onClose }: ProductDetailProps) {
+  const { key, title, imageUrl, review, description, price, rating } = detail;
+
+  const { onToggleFavorite, favorites } = useProductsContext();
+
   return (
     <>
-      <Header isIcon={true}>Details</Header>
+      <Header onClose={onClose}>Details</Header>
       <main className="h-full m-8 relative">
-        <button className="absolute right-6 top-6 bg-white p-2 rounded-lg shadow-2xl shadow-black">
-          <FaRegHeart size="1.75rem" />
+        <button
+          onClick={() => onToggleFavorite(key)}
+          className="absolute right-6 top-6 bg-white p-2 rounded-lg shadow-2xl shadow-black"
+        >
+          {!favorites[key] ? (
+            <FaRegHeart size="1.75rem" />
+          ) : (
+            <FaHeart size="1.75rem" />
+          )}
         </button>
         <div className="flex gap-4 justify-center flex-col">
           <img src={imageUrl} alt={title} className="rounded-xl" />

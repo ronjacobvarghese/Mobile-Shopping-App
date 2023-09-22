@@ -33,6 +33,7 @@ export const navData = [{
 }] as const;
 
 export const storeData = [{
+  key:0,
   title:"Regular fit color black",
   imageUrl:regBlack,
   price:"1,690",
@@ -41,6 +42,7 @@ export const storeData = [{
   rating:4.5,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },{
+  key:1,
   title:"Regular fit polo",
   price:"1,100",
   review:45,
@@ -50,6 +52,7 @@ export const storeData = [{
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },
 {
+  key:2,
   title:"Regular fit slogan",
   discount:0,
   price:"1,190",  
@@ -59,6 +62,7 @@ export const storeData = [{
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 
 },{
+  key:3,
   title:"Regular fit v-neck",
   discount:0,
   price:"1,290",  
@@ -67,6 +71,7 @@ export const storeData = [{
   imageUrl:regV,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },{
+  key:4,
   title:"Regular fit color pink",
   discount:0,
   price:"1,690",  
@@ -75,6 +80,7 @@ export const storeData = [{
   imageUrl:regPink,
   description:"The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist.",
 },{
+  key:5,
   title:"Regular fit full sleeve",
   discount:0,
   price:"1,290", 

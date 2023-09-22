@@ -5,12 +5,16 @@ import leftArrow from "/svg/arrow-left.svg";
 
 type HeaderType = {
   children: string;
-  isIcon: boolean;
+  onClose?: () => void;
 };
-export default function Header({ children, isIcon = false }: HeaderType) {
+export default function Header({ children, onClose }: HeaderType) {
   return (
     <header className="w-full flex justify-between p-8 pb-4 lg:border-b border-gray-500 border-opacity-20 shadow-sm">
-      {isIcon && <img src={leftArrow} />}
+      {onClose && (
+        <button onClick={onClose}>
+          <img src={leftArrow} />
+        </button>
+      )}
       <h1 className="font-bold text-2xl ">{children}</h1>
       <div className="flex gap-8">
         <button>
