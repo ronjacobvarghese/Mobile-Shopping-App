@@ -21,7 +21,7 @@ export default function Dashboard({ onViewProduct }: DashboardProps) {
   return (
     <div className="flex h-full">
       <Nav />
-      <main className="h-full !overflow-clip">
+      <main className="h-full !overflow-clip mt-[5rem]">
         <Header> Discover </Header>
         <Search />
         <Categories />

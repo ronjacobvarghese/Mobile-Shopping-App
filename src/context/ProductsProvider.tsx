@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { navDataType, storeDataType } from "../types";
+import { navDataType, storeDataType, CartProductType } from "../types";
 import { storeData } from "../lib/data";
 
 // The Context API is mainly for providing three functionalities:
@@ -8,12 +8,6 @@ import { storeData } from "../lib/data";
 //   -> enabling filtering while toggling between favoritePage and dashboard Page
 //   -> managing the cart products
 //   -> updating total price on adding products
-
-type CartProductType = {
-  product: Partial<storeDataType>;
-  size: "S" | "M" | "L";
-  quantity: number;
-};
 
 type ProductsContextType = {
   productPage: navDataType;
@@ -87,8 +81,9 @@ const reducer = (
 
       let newCartProduct: CartProductType = {
         product: {
-          title: cartItem.title,
-          price: cartItem.price,
+          title: cartItem.product.title,
+          price: cartItem.product.price,
+          imageUrl: cartItem.product.imageUrl,
         },
         size: cartItem.size,
         quantity: 1,
@@ -126,11 +121,16 @@ const reducer = (
           productPage: "Cart",
         };
       }
-
+      if (page === "Home") {
+        return {
+          ...state,
+          productPage: "Home",
+          storeProducts: [...storeData],
+        };
+      }
       return {
         ...state,
-        productPage: "Home",
-        storeProducts: [...storeData],
+        productPage: "Detail",
       };
     default:
       throw new Error("Invalid Product Action");

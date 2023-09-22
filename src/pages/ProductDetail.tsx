@@ -5,21 +5,37 @@ import { storeDataType } from "../types";
 import bag from "/svg/shopping-bag-02.svg";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useProductsContext } from "../context/ProductsProvider";
+import { useState } from "react";
 
 type ProductDetailProps = {
   detail: storeDataType;
   onClose: () => void;
 };
 
+type sizeType = "S" | "M" | "L";
 export default function ProductDetail({ detail, onClose }: ProductDetailProps) {
   const { key, title, imageUrl, review, description, price, rating } = detail;
+  const { onToggleFavorite, favorites, onAddToCart, onRouteToPage } =
+    useProductsContext();
+  const [size, setSize] = useState<sizeType | null>(null);
 
-  const { onToggleFavorite, favorites } = useProductsContext();
+  const addToCartHandler = () => {
+    if (!size) {
+      throw Error("Set the Appropriate Size");
+    }
+
+    onAddToCart({
+      product: detail,
+      size,
+      quantity: 1,
+    });
+    onRouteToPage("Cart");
+  };
 
   return (
-    <>
-      <Header onClose={onClose}>Details</Header>
-      <main className="h-full m-8 relative">
+    <div className="overflow-clip h-full">
+      <Header isIcon>Details</Header>
+      <main className="h-full m-8 relative mt-[6.5rem] overflow-auto">
         <button
           onClick={() => onToggleFavorite(key)}
           className="absolute right-6 top-6 bg-white p-2 rounded-lg shadow-2xl shadow-black"
@@ -45,7 +61,10 @@ export default function ProductDetail({ detail, onClose }: ProductDetailProps) {
           <ul className="pt-4 flex gap-2 w-full">
             {["S", "M", "L"].map((item, index) => (
               <li
-                className="py-3 px-5 text-lg rounded-lg border border-gray-400/50"
+                className={` ${
+                  size === item ? "!bg-black text-gray-100" : ""
+                } py-3 px-5 text-lg rounded-lg border border-gray-400/50`}
+                onClick={() => setSize(item as sizeType)}
                 key={index}
               >
                 {item}
@@ -59,11 +78,14 @@ export default function ProductDetail({ detail, onClose }: ProductDetailProps) {
           <p className="text-gray-600/80">Price</p>
           <h1 className="text-2xl">INR {price}</h1>
         </div>
-        <button className="flex gap-2 px-8 py-4 rounded-lg bg-black text-white">
+        <button
+          className="flex gap-2 px-8 py-4 rounded-lg bg-black text-white"
+          onClick={addToCartHandler}
+        >
           <img src={bag} alt="bag" />
           <p>Add to Cart</p>
         </button>
       </footer>
-    </>
+    </div>
   );
 }
