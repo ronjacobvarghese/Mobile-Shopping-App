@@ -1,23 +1,24 @@
-import React from "react";
+import { useSelector } from "react-redux";
+
 import Header from "../components/Header";
 import arrowRight from "/svg/arrow-right.svg";
-import { useProductsContext } from "../context/ProductsProvider";
 import CartCard from "../components/CartCard";
+import { CartProductType } from "../types";
 
 export default function Cart() {
-  const { cart } = useProductsContext();
+  const cart = useSelector((state: any) => state.cart.cart);
   return (
     <>
       <Header isIcon>My Cart</Header>
       <main className="flex flex-col pt-[5rem] overflow-auto box-border items-center h-full">
-        <section className="w-full p-6">
+        <section className="w-full p-6 h-[50%] min-h-[10rem] overflow-auto">
           <ul className="w-full flex flex-col gap-y-4">
-            {cart.map((item) => (
-              <CartCard {...item} />
+            {cart.map((item: CartProductType) => (
+              <CartCard key={item.product.key} {...item} />
             ))}
           </ul>
         </section>
-        <section className="w-full fixed bottom-16 p-8">
+        <section className="w-full p-8">
           <input
             placeholder="Add a voucher"
             className="h-14 w-full pl-6 bg-gray-300/40 rounded-xl"

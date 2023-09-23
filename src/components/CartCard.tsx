@@ -5,8 +5,7 @@ import trash from "/svg/trash-03.svg";
 
 export default function CartCard({ product, size, quantity }: CartProductType) {
   const { imageUrl, title, price, key } = product;
-  console.log(product);
-  console.log(imageUrl);
+
   return (
     <li
       key={key}

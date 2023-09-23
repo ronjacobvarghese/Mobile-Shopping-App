@@ -1,12 +1,17 @@
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-import { storeDataType } from "../types";
+import { navDataType, storeDataType } from "../types";
+
+type sendProductDetailType = {
+  page: navDataType;
+  product: storeDataType;
+};
 
 type ProductCardType = {
   product: storeDataType;
   isFavorite: boolean;
-  onToggleFavorite: () => void;
-  onViewProduct: (product: storeDataType) => void;
+  onToggleFavorite: (index: number) => void;
+  onViewProduct: (page: sendProductDetailType) => void;
 };
 
 export default function ProductCard({
@@ -22,12 +27,17 @@ export default function ProductCard({
       <button
         key={key}
         className="z-10 flex justify-center items-center absolute top-2 right-4 bg-white p-2 rounded-lg shadow-2xl lg:top-[18.75rem] lg:right-2"
-        onClick={onToggleFavorite}
+        onClick={() => onToggleFavorite(key)}
       >
         {isFavorite ? <FaHeart size="1.4rem" /> : <FaRegHeart size="1.4rem" />}
       </button>
       <article
-        onClick={() => onViewProduct(product)}
+        onClick={() =>
+          onViewProduct({
+            page: "Detail",
+            product: product,
+          })
+        }
         className="relative w-full"
       >
         <img

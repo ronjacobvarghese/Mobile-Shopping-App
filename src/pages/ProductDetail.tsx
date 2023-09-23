@@ -1,35 +1,47 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import bag from "/svg/shopping-bag-02.svg";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import star from "/svg/star-01.svg";
 
 import Header from "../components/Header";
-import { storeDataType } from "../types";
-import bag from "/svg/shopping-bag-02.svg";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useProductsContext } from "../context/ProductsProvider";
-import { useState } from "react";
-
-type ProductDetailProps = {
-  detail: storeDataType;
-  onClose: () => void;
-};
+import { routePage, toggleFavorites } from "../store/products-slice";
+import { addCartProduct } from "../store/cart-slice";
 
 type sizeType = "S" | "M" | "L";
-export default function ProductDetail({ detail, onClose }: ProductDetailProps) {
-  const { key, title, imageUrl, review, description, price, rating } = detail;
-  const { onToggleFavorite, favorites, onAddToCart, onRouteToPage } =
-    useProductsContext();
+export default function ProductDetail() {
+  const dispatch = useDispatch();
+  const details = useSelector((state: any) => state.products.productDetail);
+  const favorites = useSelector((state: any) => state.products.favorites);
+
+  if (!details) {
+    throw Error("Detail Of Product Undefined");
+  }
+
+  const { key, title, imageUrl, review, description, price, rating } = details;
+
   const [size, setSize] = useState<sizeType | null>(null);
 
   const addToCartHandler = () => {
     if (!size) {
       throw Error("Set the Appropriate Size");
     }
-
-    onAddToCart({
-      product: detail,
+    console.log({
+      product: details,
       size,
       quantity: 1,
     });
-    onRouteToPage("Cart");
+
+    dispatch(
+      addCartProduct({
+        product: details,
+        size,
+        quantity: 1,
+      })
+    );
+
+    dispatch(routePage({ page: "Cart" }));
   };
 
   return (
@@ -37,7 +49,7 @@ export default function ProductDetail({ detail, onClose }: ProductDetailProps) {
       <Header isIcon>Details</Header>
       <main className="h-full m-8 relative mt-[6.5rem] overflow-auto">
         <button
-          onClick={() => onToggleFavorite(key)}
+          onClick={() => dispatch(toggleFavorites(key))}
           className="absolute right-6 top-6 bg-white p-2 rounded-lg shadow-2xl shadow-black"
         >
           {!favorites[key] ? (
