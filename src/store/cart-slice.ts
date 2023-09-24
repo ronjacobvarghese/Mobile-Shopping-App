@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CartProductType, storeDataType } from "../types";
+import { CartProductType } from "../types";
+
+//redux cart slice handles all cart operations
+//includes add cart product from product details as well as in the cart
+// reducing items one by one in the cart as well as removing the product as a whole.
 
 type InitStateType = {
   cart: CartProductType[];
@@ -28,8 +32,10 @@ const cartSlice = createSlice({
       if (existingCartItem) {
         // filter existing cart to remove the updated product
         // Add +1 quantity to updated product
-        // update the state
+        // update the total price
+        // update the cart state
 
+  
         const filteredCartProducts = state.cart.filter(
           (item) =>
             item.product.title +item.size !== existingCartItem.product.title +existingCartItem.size 
@@ -40,6 +46,10 @@ const cartSlice = createSlice({
         state.totalPrice += existingCartItem.product.price;
         state.cart = [...filteredCartProducts, existingCartItem];
       } else {
+        //create a brand new product,
+        //assign quantity
+        // update the total price as well as cart state
+
         let newCartProduct: CartProductType = {
           product:cartItem.product,
           size: cartItem.size,

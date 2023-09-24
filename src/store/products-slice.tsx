@@ -3,6 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { navDataType, storeDataType } from "../types";
 import { storeData } from "../lib/data";
 
+// Mainly for providing three functionalities:
+//  -> Page Routing
+//  -> differentiate between favorite and non-favorite products
+//   -> enabling filtering while toggling between favoritePage and dashboard Page
+
 export type ProductsStateType = {
   productPage: navDataType;
   productDetail?: storeDataType;

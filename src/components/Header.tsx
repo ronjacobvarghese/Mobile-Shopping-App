@@ -13,6 +13,7 @@ export default function Header({ children, isIcon }: HeaderType) {
 
   return (
     <header className="fixed top-0 w-full flex justify-between p-8 pb-4 lg:border-b border-gray-500 border-opacity-20 shadow-sm">
+      {/* Depending on Page Making the Go Back Functionality Accessible */}
       {isIcon && (
         <button onClick={() => dispatch(routePage({ page: "Home" }))}>
           <img src={leftArrow} />
