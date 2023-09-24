@@ -5,7 +5,7 @@ export default function Categories() {
       <ul className="flex gap-4">
         {categoryData.map((item, index) => (
           <li
-            className="bg-gray-200 px-6 py-2 w-100 whitespace-nowrap rounded-lg"
+            className={`bg-gray-200 px-6 py-2 w-100 whitespace-nowrap rounded-lg`}
             key={index}
           >
             {item}

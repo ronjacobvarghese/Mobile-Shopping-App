@@ -7,6 +7,8 @@ import { CartProductType } from "../types";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart.cart);
+  const totalPrice = useSelector((state: any) => state.cart.totalPrice);
+
   return (
     <>
       <Header isIcon>My Cart</Header>
@@ -26,20 +28,20 @@ export default function Cart() {
           <ul className="pt-2">
             <li className="flex justify-between items-center py-2">
               <p className="text-gray-600/70">Sub-total</p>{" "}
-              <p className=" font-medium">INR 5,870</p>
+              <p className=" font-medium">INR {totalPrice}</p>
             </li>
             <li className="flex justify-between items-center py-2">
               <p className="text-gray-600/70">VAT (%)</p>{" "}
-              <p className=" font-medium">INR 5,870</p>
+              <p className=" font-medium">INR 0</p>
             </li>
             <li className="flex justify-between items-center py-2">
               <p className="text-gray-600/70">Shipping fee</p>{" "}
-              <p className=" font-medium">INR 5,870</p>
+              <p className=" font-medium">INR 90</p>
             </li>
           </ul>
           <div className="flex justify-between items-center mt-4 py-6 border-t border-gray-400/50">
             <h3>Total</h3>
-            <h2>INR 5,950</h2>
+            <h2>INR {totalPrice + 90}</h2>
           </div>
         </section>
       </main>

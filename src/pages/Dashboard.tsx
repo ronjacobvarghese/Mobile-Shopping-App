@@ -11,9 +11,9 @@ import { routePage, toggleFavorites } from "../store/products-slice";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
+  const page = useSelector((state: any) => state.products.productPage);
   const products = useSelector((state: any) => state.products.storeProducts);
   const favorites = useSelector((state: any) => state.products.favorites);
-  console.log(products);
 
   return (
     <div className="flex h-full">
@@ -23,7 +23,7 @@ export default function Dashboard() {
         <Search />
         <Categories />
         <div className="pt-4 pb-[20.5rem] w-full h-full overflow-y-auto">
-          <ul className="px-4 flex flex-wrap gap-4 w-full">
+          <ul key={page} className="px-4 flex flex-wrap gap-4 w-full">
             {products.map((item: storeDataType, index: number) => (
               <ProductCard
                 key={item.key}
