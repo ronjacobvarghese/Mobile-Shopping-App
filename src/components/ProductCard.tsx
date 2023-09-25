@@ -9,6 +9,7 @@ type sendProductDetailType = {
 
 type ProductCardType = {
   product: storeDataType;
+  page: navDataType;
   isFavorite: boolean;
   onToggleFavorite: (index: number) => void;
   onViewProduct: (page: sendProductDetailType) => void;
@@ -16,14 +17,21 @@ type ProductCardType = {
 
 export default function ProductCard({
   product,
+  page,
   isFavorite,
   onToggleFavorite,
   onViewProduct,
 }: ProductCardType) {
   const { key, title, imageUrl, price, discount } = product;
+  console.log(page);
 
   return (
-    <li key={key} className="w-[47.75%] max-w-[17rem] relative">
+    <li
+      key={key}
+      className={`${
+        page == "Saved" && !isFavorite ? "!hidden" : ""
+      } w-[47.75%] max-w-[17rem] relative`}
+    >
       <button
         key={key}
         className="z-10 flex justify-center items-center absolute top-2 right-4 bg-white p-2 rounded-lg shadow-2xl lg:top-[18.75rem] lg:right-2"

@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../hooks";
 import { navData } from "../lib/data";
 import { routePage } from "../store/products-slice";
 
 export default function Nav() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <nav className=" w-full px-10 lg:w-auto border-t py-4 border-gray-600 fixed bottom-0 z-40 bg-gray-100 lg:relative lg:h-full lg:px-6 lg:py-8 lg:border-t-0 font-medium text-[0.75rem]  lg:border-r lg:border-gray-300 border-opacity-20 lg:bg-white">
       <ul className="flex gap-16 justify-evenly lg:flex-col lg:justify-start lg:gap-8  text-gray-500">

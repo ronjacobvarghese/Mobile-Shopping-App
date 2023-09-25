@@ -1,23 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { navDataType, storeDataType } from "../types";
 import { storeData } from "../lib/data";
+import { RootState } from ".";
 
-// Mainly for providing three functionalities:
+// Mainly for providing two functionalities:
 //  -> Page Routing
-//  -> differentiate between favorite and non-favorite products
-//   -> enabling filtering while toggling between favoritePage and dashboard Page
+//  -> toggling products between favorite and non-favorite 
 
 export type ProductsStateType = {
   productPage: navDataType;
   productDetail?: storeDataType;
-  storeProducts: storeDataType[];
   favorites: boolean[];
 };
 
+export type RoutePageActionType = {
+  page:navDataType, product?:storeDataType
+}
+
 const initState: ProductsStateType = {
   productPage: "Home",
-  storeProducts: [...storeData],
   favorites: new Array(storeData.length).fill(false),
 };
 
@@ -25,21 +27,13 @@ const productsSlice = createSlice({
   name: "products",
   initialState: initState,
   reducers: {
-    toggleFavorites(state, action) {
+    toggleFavorites(state, action: PayloadAction<number>) {
       const { payload: key } = action;
       state.favorites[key] = !state.favorites[key];
     },
-    routePage(state, action) {
+    routePage(state, action: PayloadAction<RoutePageActionType>) {
       const { page, product } = action.payload;
       state.productPage = page;
-      if (page === "Saved") {
-        state.storeProducts = storeData.filter(
-          (_item, index) => state.favorites[index]
-        );
-      }
-      if (page === "Home") {
-        state.storeProducts = [...storeData];
-      }
       if (page === "Detail") {
         state.productDetail = product;
       }
@@ -47,6 +41,10 @@ const productsSlice = createSlice({
   },
 });
 
+
 export const { toggleFavorites, routePage } = productsSlice.actions;
+
+
+export const selectAllProducts = (state: RootState) => state.products
 
 export default productsSlice.reducer;
