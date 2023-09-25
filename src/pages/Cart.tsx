@@ -1,13 +1,12 @@
-import { useSelector } from "react-redux";
-
 import Header from "../components/Header";
 import arrowRight from "/svg/arrow-right.svg";
 import CartCard from "../components/CartCard";
 import { CartProductType } from "../types";
+import { useAppSelector } from "../hooks";
+import { selectAllCart } from "../store/cart-slice";
 
 export default function Cart() {
-  const cart = useSelector((state: any) => state.cart.cart);
-  const totalPrice = useSelector((state: any) => state.cart.totalPrice);
+  const { cart, totalPrice } = useAppSelector(selectAllCart);
 
   return (
     <>

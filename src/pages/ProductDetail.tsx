@@ -1,19 +1,23 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import bag from "/svg/shopping-bag-02.svg";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import star from "/svg/star-01.svg";
 
 import Header from "../components/Header";
-import { routePage, toggleFavorites } from "../store/products-slice";
+import {
+  routePage,
+  selectAllProducts,
+  toggleFavorites,
+} from "../store/products-slice";
 import { addCartProduct } from "../store/cart-slice";
+import { useAppDispatch, useAppSelector } from "../hooks";
 
 type sizeType = "S" | "M" | "L";
 export default function ProductDetail() {
-  const dispatch = useDispatch();
-  const details = useSelector((state: any) => state.products.productDetail);
-  const favorites = useSelector((state: any) => state.products.favorites);
+  const dispatch = useAppDispatch();
+  const { productDetail: details, favorites } =
+    useAppSelector(selectAllProducts);
 
   if (!details) {
     throw Error("Detail Of Product Undefined");

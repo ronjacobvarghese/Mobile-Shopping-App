@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CartProductType } from "../types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CartProductType, storeDataType } from "../types";
+import { RootState } from '.';
 
 //redux cart slice handles all cart operations
 //includes add cart product from product details as well as in the cart
@@ -15,11 +16,18 @@ const initState: InitStateType = {
   totalPrice: 0,
 };
 
+type DeleteProductActionType = {
+  key:storeDataType['key'],
+  price: storeDataType['price'],
+  quantity: number,
+  size:CartProductType['size'],
+}
+
 const cartSlice = createSlice({
   name: "Cart",
   initialState: initState,
   reducers: {
-    addCartProduct(state, action) {
+    addCartProduct(state, action: PayloadAction<CartProductType>) {
       const  cartItem:CartProductType = action.payload;
       // two cases: cart contains item or item does not exist in cart
 
@@ -60,12 +68,12 @@ const cartSlice = createSlice({
         state.cart = [...state.cart, newCartProduct];
       }
     },
-    reduceCartQty(state,action) {
+    reduceCartQty(state,action: PayloadAction<storeDataType['key']>) {
         const key = action.payload;
         state.cart[key].quantity -=1;
         state.totalPrice -=state.cart[key].product.price;
     },
-    deleteCartProduct(state,action) {
+    deleteCartProduct(state,action:PayloadAction<DeleteProductActionType>) {
       const { key, price, quantity,  size } = action.payload;
       state.cart = state.cart.filter(item => item.product.key+item.size !== key+size);
       state.totalPrice -= price*quantity
@@ -74,5 +82,7 @@ const cartSlice = createSlice({
 });
 
 export const { addCartProduct, reduceCartQty, deleteCartProduct } = cartSlice.actions;
+export const selectAllCart = (state:RootState) => state.cart;
+
 
 export default cartSlice.reducer;
